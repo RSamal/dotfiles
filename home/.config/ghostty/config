@@ -1,0 +1,75 @@
+# Ghostty config — reload a running window with shift + cmd + ,
+# NOTE: Ghostty has no inline comments; a comment must be on its own line.
+
+# ── Theme / colors ─────────────────────────────
+# Built-in Catppuccin Mocha (matches Neovim). The source config used a local
+# rose-pine file; swapped to the built-in theme so nothing needs a theme file.
+theme = Catppuccin Mocha
+
+# ── Background / transparency ──────────────────
+# opacity: 0 = clear, 1 = solid
+background-opacity = 0.88
+# blur strength behind the window
+background-blur-radius = 25
+
+# ── Font ───────────────────────────────────────
+# NL = No-Ligatures, Mono = fixed width. Exact installed family name.
+font-family = JetBrainsMonoNL Nerd Font Mono
+font-size = 15
+# belt-and-suspenders: also disable ligatures/contextual/discretionary
+font-feature = -liga,-calt,-dlig
+
+# ── Cursor ─────────────────────────────────────
+cursor-style = block
+cursor-style-blink = false
+# cursor block uses the text colour; the glyph under it uses the bg colour
+cursor-color = cell-foreground
+cursor-text = cell-background
+
+# ── Splits ─────────────────────────────────────
+# dim inactive split panes
+unfocused-split-opacity = 0.55
+split-divider-color = #524f67
+
+# ── Window / macOS ─────────────────────────────
+window-show-tab-bar = auto
+# 'hidden' = no titlebar, cleanest look (no tab bar ever). Trade-off:
+# new_tab opens a new WINDOW instead of a tab.
+macos-titlebar-style = hidden
+# make Option send Alt/Meta (for terminal keybinds) instead of typing accents
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+# no "are you sure?" prompt when closing a pane/tab/window
+confirm-close-surface = false
+window-decoration = auto
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+
+# ── Updates ────────────────────────────────────
+auto-update = check
+auto-update-channel = stable
+
+# ── Extras ─────────────────────────────────────
+# let the shell/starship own the cursor shape
+shell-integration-features = no-cursor
+# selecting text auto-copies to the system clipboard
+copy-on-select = clipboard
+
+# ── Keybinds (super = cmd on mac) ──────────────
+# Native cmd shortcuts — no tmux-style prefix. Ghostty's built-ins cover most:
+#   ⌘T new tab · ⌘1–8 goto tab · ⌘D split right · ⌘⇧D split down
+#   ⌘[ / ⌘] cycle splits · ⌘⇧↩ zoom split · ⌘⌃= equalize splits
+#   ⌘N new window · ⌘W close · ⌘⇧, reload config · ⌘K clear screen
+keybind = ctrl+bracket_left=text:\x1b
+keybind = super+i=inspector:toggle
+
+# home-row split navigation (in addition to the built-in ⌘⌥+arrows)
+keybind = super+shift+h=goto_split:left
+keybind = super+shift+j=goto_split:down
+keybind = super+shift+k=goto_split:up
+keybind = super+shift+l=goto_split:right
+
+# ── Shaders (need .glsl files in ./shaders — off for now) ──
+# custom-shader = shaders/bettercrt.glsl
+# custom-shader = shaders/retro-terminal.glsl
