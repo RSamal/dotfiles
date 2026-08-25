@@ -39,9 +39,14 @@
     onActivation.cleanup = "zap";  # remove anything not declared below
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
+    brews = [
+      "podman"                         # container engine CLI (podman machine on macOS)
+    ];
     casks = [
+      "claude-code"                    # Anthropic Claude Code coding agent CLI
       "codex"                          # OpenAI Codex coding agent CLI
       "ghostty"                        # terminal emulator
+      "libreoffice"                    # office suite
       "podman-desktop"                 # container/Kubernetes desktop
       "raycast"                        # launcher / Spotlight replacement
     ];

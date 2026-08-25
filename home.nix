@@ -2,6 +2,22 @@
 
 let
   dotfiles = "${config.home.homeDirectory}/.dotfiles";
+
+  # git worktree manager (github.com/satococoa/wtp) — not in nixpkgs, so built here
+  wtp = pkgs.buildGoModule rec {
+    pname = "wtp";
+    version = "2.10.3";
+    src = pkgs.fetchFromGitHub {
+      owner = "satococoa";
+      repo = "wtp";
+      rev = "v${version}";
+      hash = "sha256-KgayKjH4iHi7LgWwk2Laba33bMVZdbiMQgSmqBSTfZ0=";
+    };
+    vendorHash = "sha256-zsSNo1MQgpvH3ZSd3kmvdIpOCVJgSu1/pYLltx/9dZg=";
+    subPackages = [ "cmd/wtp" ];
+    doCheck = false; # integration tests expect to run inside a git repo
+    ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  };
 in
 
 {
@@ -35,6 +51,8 @@ in
     # the font everything renders in
     nerd-fonts.jetbrains-mono
     yazi
+
+    wtp  # git worktree manager (defined above)
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
@@ -45,6 +63,7 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+      eval "$(wtp shell-init zsh)"  # wtp cd + completions
     '';
     shellAliases = {
       ".." = "cd ..";
