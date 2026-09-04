@@ -39,6 +39,10 @@
     onActivation.cleanup = "zap";  # remove anything not declared below
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
+    taps = [
+      # Toe tiling WM — tap lives at a custom URL (repo isn't homebrew-toe)
+      { name = "theclifmeister/toe"; clone_target = "https://github.com/theclifmeister/toe"; }
+    ];
     brews = [
       "podman"                         # container engine CLI (podman machine on macOS)
     ];
@@ -46,7 +50,9 @@
       "claude-code"                    # Anthropic Claude Code coding agent CLI
       "codex"                          # OpenAI Codex coding agent CLI
       "ghostty"                        # terminal emulator
-      "libreoffice"                    # office suite
+      "theclifmeister/toe/toe"         # Toe — native Hyprland-dwindle tiling WM
+      # "libreoffice"                  # app stays installed; cask definition is
+      # broken with Homebrew 6 ("command_wrapper") — re-enable when fixed upstream
       "podman-desktop"                 # container/Kubernetes desktop
       "raycast"                        # launcher / Spotlight replacement
     ];

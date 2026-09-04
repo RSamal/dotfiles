@@ -77,16 +77,50 @@ in
   };
 
 
+   # Omarchy's own starship layout (github.com/omacom/omarchy config/starship.toml),
+   # recolored from cyan to Catppuccin mauve. Minimal: dir + git + prompt char.
    programs.starship = {
     enable = true;
     settings = {
-      add_newline = false;
-      format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
+      add_newline = true;
+      command_timeout = 200;
+      format = "[$directory$git_branch$git_status]($style)$character";
+      right_format = "$cmd_duration";
       character = {
-        success_symbol = "[❯](purple)";
-        error_symbol = "[❯](red)";
+        success_symbol = "[❯](bold #cba6f7)";
+        error_symbol = "[❯](bold #f38ba8)";
       };
-      cmd_duration.format = "[$duration]($style) ";
+      directory = {
+        style = "bold #b4befe";
+        truncation_length = 2;
+        truncation_symbol = "…/";
+        repo_root_style = "bold #cba6f7";
+        repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) ";
+      };
+      git_branch = {
+        format = "[$branch]($style) ";
+        style = "italic #fab387";
+      };
+      git_status = {
+        format = "[$all_status]($style) ";
+        style = "#f9e2af";
+        ahead = "⇡\${count} ";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count} ";
+        behind = "⇣\${count} ";
+        conflicted = " ";
+        up_to_date = "";
+        untracked = "?\${count} ";
+        modified = " ";
+        stashed = "";
+        staged = "";
+        renamed = "";
+        deleted = "";
+      };
+      cmd_duration = {
+        min_time = 2000;
+        format = "[󱎫 $duration]($style)";
+        style = "#7f849c";
+      };
     };
   };
 
@@ -96,5 +130,9 @@ in
 
   home.file.".config/nvim".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
+
+  # Only the config file, not the whole toe dir — themes/ are downloads, not dotfiles.
+  home.file.".config/toe/toe.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/toe/toe.toml";
 
 }
