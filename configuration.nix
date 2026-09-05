@@ -49,6 +49,7 @@
     casks = [
       "claude-code"                    # Anthropic Claude Code coding agent CLI
       "codex"                          # OpenAI Codex coding agent CLI
+      "finicky"                        # URL router: opens links from Slack etc. in a new Chrome window
       "ghostty"                        # terminal emulator
       "theclifmeister/toe/toe"         # Toe — native Hyprland-dwindle tiling WM
       # "libreoffice"                  # app stays installed; cask definition is

@@ -131,6 +131,10 @@ in
   home.file.".config/nvim".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
 
+  # Finicky reads ~/.finicky.js; edit-in-place like the rest.
+  home.file.".finicky.js".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.finicky.js";
+
   # Only the config file, not the whole toe dir — themes/ are downloads, not dotfiles.
   home.file.".config/toe/toe.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/toe/toe.toml";
